@@ -1,0 +1,25 @@
+workspace(name = "my_iota_client")
+
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+
+git_repository(
+    name = "org_iota_common",
+    commit = "6eb68fd38288fb96b1ecedbb1d2844516be596b9",
+    remote = "https://github.com/iotaledger/iota_common.git",
+)
+
+git_repository(
+    name = "org_iota_client",
+    commit = "a3dfd78c685d8805ccd586f603037d205c26a57d",
+    remote = "https://github.com/iotaledger/iota.c.git",
+)
+
+git_repository(
+    name = "rules_iota",
+    commit = "e08b0038f376d6c82b80f5283bb0a86648bb58dc",
+    remote = "https://github.com/iotaledger/rules_iota.git",
+)
+
+load("@rules_iota//:defs.bzl", "iota_deps")
+
+iota_deps()
