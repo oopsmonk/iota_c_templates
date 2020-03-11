@@ -2,23 +2,6 @@
 #include "cclient/api/extended/extended_api.h"
 #include "config.h"
 
-void init_iota_client(iota_client_service_t *const service) {
-  service->http.path = "/";
-  service->http.content_type = "application/json";
-  service->http.accept = "application/json";
-  service->http.host = CONFIG_IRI_NODE_URI;
-  service->http.port = CONFIG_IRI_NODE_PORT;
-  service->http.api_version = 1;
-#ifdef CONFIG_ENABLE_HTTPS
-  service->http.ca_pem = ROOT_CA1_PEM;
-#else
-  service->http.ca_pem = NULL;
-#endif
-  service->serializer_type = SR_JSON;
-  iota_client_core_init(service);
-  iota_client_extended_init();
-}
-
 void get_iota_node_info(iota_client_service_t *iota_client_service) {
   retcode_t ret = RC_ERROR;
   // Allocate a response object
@@ -63,9 +46,14 @@ done:
 
 int main(void) {
   // Create and init the client service
-  iota_client_service_t iota_client_service;
-  init_iota_client(&iota_client_service);
+  iota_client_service_t *iota_client_service;
+
+#ifdef CONFIG_ENABLE_HTTPS
+    iota_client_service = iota_client_core_init(CONFIG_IRI_NODE_URI, CONFIG_IRI_NODE_PORT, ROOT_CA1_PEM);
+#else
+    iota_client_service = iota_client_core_init(CONFIG_IRI_NODE_URI, CONFIG_IRI_NODE_PORT, NULL);
+#endif
 
   // Call the getNodeInfo endpoint
-  get_iota_node_info(&iota_client_service);
+  get_iota_node_info(iota_client_service);
 }
