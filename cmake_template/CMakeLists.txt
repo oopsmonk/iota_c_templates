@@ -4,6 +4,9 @@ cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
 
 project(my_app DESCRIPTION "My IOTA Client")
 
+# for embear_logger
+add_definitions(-DLOGGER_ENABLE)
+
 enable_language(C)
 enable_testing()
 
@@ -12,7 +15,7 @@ include(FetchContent)
 FetchContent_Declare(
   iota.c
   GIT_REPOSITORY http://github.com/iotaledger/iota.c.git
-  GIT_TAG d632a84272dab322e9fbcbe71a5e6ac7e8168900
+  GIT_TAG e260967bd3a9088fa03d20c1517930e23f1de591
 )
 
 if(${CMAKE_VERSION} VERSION_LESS 3.14)
@@ -55,3 +58,10 @@ target_link_libraries(my_app PUBLIC
   mbedcrypto
   mbedx509
 )
+
+if(WIN32)
+target_link_libraries(my_app PUBLIC
+  ws2_32
+  ssp
+)
+endif(WIN32)
