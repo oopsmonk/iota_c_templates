@@ -89,9 +89,9 @@ PS C:\Users\Sam\IOTA\iota_cmake_app\app_build> .\my_app.exe
 
 # bazel
 cp -r iota_c_templates/bazel_template iota_bazel_app
-PS C:\Users\Sam\IOTA\> cd iota_bazel_app
-PS C:\Users\Sam\IOTA\iota_bazel_app\> bazel.exe run my_app
+PS C:\Users\Sam\IOTA> cd iota_bazel_app
+PS C:\Users\Sam\IOTA\iota_bazel_app> bazel.exe run --compiler=mingw-gcc my_app
 
 # bazelisk
-PS C:\Users\Sam\IOTA\iota_bazel_app\> bazelisk.exe run my_app
+PS C:\Users\Sam\IOTA\iota_bazel_app> bazelisk.exe run --compiler=mingw-gcc my_app
 ```
