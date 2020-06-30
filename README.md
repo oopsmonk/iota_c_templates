@@ -62,7 +62,7 @@ bazel run my_app
 
 # bazelisk
 cd iota_bazel_app
-USE_BAZEL_VERSION=2.1.0 bazelisk run my_app
+USE_BAZEL_VERSION=3.2.0 bazelisk run my_app
 ```
 
 ## How to compile application on Windows  
